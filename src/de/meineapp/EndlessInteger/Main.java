@@ -1,14 +1,11 @@
 package de.meineapp.EndlessInteger;
 
-import EndlessIntCalc.SavitchIn;
-
 public class Main {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		/*System.out.println("Bitte geben sie eine Beliebig lange Zahl1 ein: ");
 		String endlessInteger1 = SavitchIn.readLine();
 		

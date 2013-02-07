@@ -1,28 +1,43 @@
 package de.meineapp.EndlessInteger;
-import java.util.Arrays;
 
 public class EndlessIntCalc {
 	
-	//think more about your VariableNames --- too much saveNumbers and Numbers :)
 	
-	//Why is it better to have setter and getters and not a public int[]
+	/**
+	 * Constructor
+	 * Saves read in String to an Int Array
+	 * @param numberString
+	 */
+	public EndlessIntCalc ( String numberString ) {
+		if (numberString != null) {
+		saveNumber = this.StringToIntArray(numberString);
+		} else {
+			saveNumber = this.StringToIntArray("0");
+		}
+	}
+	
+
 	private int[] saveNumber;
 		
 	//Setter
 	public void setsaveNumber ( int[] saveNumber ) {
 		//think about what happens when the saveNumber is null
-		this.saveNumber = saveNumber;		
+			//When savenumber is null, a null pointer exception occurs.
+			//to avoid this, savenumber is set to 0 when initially is null.
+		if (saveNumber != null) {
+			this.saveNumber = saveNumber;
+				
+		}else {
+			return;
+			}
 	}
 	
-	
-	/**
-	 * Saves read in String to an Int Array
-	 * @param numberString
-	 */
-	public EndlessIntCalc ( String numberString ) {
-		
-		saveNumber = this.StringToIntArray(numberString);
+	//Getter
+	public int[] getsaveNumber () {		
+		return saveNumber;
 	}
+	
+
 	
 	/**
 	 * Overwrites toString (which is always accessible, but does not work in most cases...)
@@ -37,61 +52,42 @@ public class EndlessIntCalc {
 	}	
 
 	
-	/**
-	 * Getter--> LESEN!!!!
-	 * 
-	 * @return
-	 */
-	public int[] getsaveNumber () {		
-		return saveNumber;
-	}
+
 		
 	
 	public EndlessIntCalc AddInteger ( EndlessIntCalc number ) {
-		//refactor not over 20 Lines in one methode		
-		int[] savedNumber = this.saveNumber;		//Objekt aus dem Konstruktor
-		int[] saved2Number = number.getsaveNumber();	//Zweites Objekt
+		int number1, number2, rest = 0;
+		int[] firstNumber = this.saveNumber;		//Objekt aus dem Konstruktor
+		int[] secondNumber = number.getsaveNumber();	//Zweites objekt
 		
-		//GetMaxArrayLength is not the right name -- a name like GetMaxLengthOfTwoArrays would be better
-		int maxLength = GetMaxArrayLength(savedNumber, saved2Number) + 1;
+		int maxLength = GetMaxLengthOfTwoArrays(firstNumber, secondNumber) + 1;
 		int[] additionResult = new int[maxLength];
-	
-		int rest = 0;
 		
-		int number1 = 0;
-		int number2 = 0;		
 		
+		//Add characterwise
 		for ( int i = 0; i < maxLength; i++) {
 					
-			//codeduplication :( make a function getNumberFromIntArraySavely
-			if ( i < savedNumber.length ) {
-				number1 = savedNumber[i];
-			}else {
-				number1 = 0;
-			}
-			
-			if ( i < saved2Number.length ) {
-				number2 = saved2Number[i];
-			}else {
-				number2 = 0;
-			}
-			
+			number1 = this.getNumberFromIntArraySavely(firstNumber, i);
+			number2 = this.getNumberFromIntArraySavely(secondNumber, i);
+
 			additionResult[i] = (rest + number1 + number2) % 10;
 			rest = (rest + number1 + number2) / 10;
-				
-			
-		}
-		
+			}
+
 		//create a second construct that takes an int array
 		EndlessIntCalc result = new EndlessIntCalc("0");
 		result.setsaveNumber(additionResult);		
 		return result;	
 	}
 			
-			
-			
-
-	private int GetMaxArrayLength (int[] saveNumber, int[] save2Number) {
+	
+	/**
+	 * Gets the maximal length of two arrays
+	 * @param int array saveNumber
+	 * @param int array save2Number
+	 * @return
+	 */
+	private int GetMaxLengthOfTwoArrays (int[] saveNumber, int[] save2Number) {
 		
 		int maxArrayLength = saveNumber.length;
 		if ( save2Number.length > saveNumber.length ) {
@@ -99,7 +95,6 @@ public class EndlessIntCalc {
 		}
 		return maxArrayLength;
 	}
-	
 	
 	
 	/**
@@ -115,8 +110,23 @@ public class EndlessIntCalc {
 		for (int i = toConvert.length() - 1; i >= 0; i--) {
 			intArray[toConvert.length() - i - 1] = Character.digit(toConvert.charAt(i), 10);
 		}
-		return intArray;		
-		
+		return intArray;	
+	}
+	
+	/**
+	 * Returns the character on position i with leading zeros
+	 * @param int array savedNumber
+	 * @param int i
+	 * @return int saveNumber
+	 */
+	private int getNumberFromIntArraySavely(int[] savedNumber, int i) {
+		int saveNumber;
+		if ( i < savedNumber.length ) {
+			saveNumber = savedNumber[i];
+		}else {
+			saveNumber = 0;
+		}
+		return saveNumber;
 	}
 
 }

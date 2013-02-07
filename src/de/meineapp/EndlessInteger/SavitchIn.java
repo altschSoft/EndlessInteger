@@ -1,4 +1,4 @@
-package EndlessIntCalc;
+package de.meineapp.EndlessInteger;
 import java.io.*;
 import java.util.*;
 
