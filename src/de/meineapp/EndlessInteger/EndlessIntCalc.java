@@ -10,7 +10,15 @@ public class EndlessIntCalc {
 	 */
 	public EndlessIntCalc ( String numberString ) {
 		if (numberString != null) {
-		saveNumber = this.StringToIntArray(numberString);
+			saveNumber = this.StringToIntArray(numberString);
+		} else {
+			saveNumber = this.StringToIntArray("0");
+		}
+	}
+	
+	public EndlessIntCalc(int[] number) {
+		if (number != null) {
+			saveNumber = number;
 		} else {
 			saveNumber = this.StringToIntArray("0");
 		}
@@ -62,8 +70,7 @@ public class EndlessIntCalc {
 		
 		int maxLength = GetMaxLengthOfTwoArrays(firstNumber, secondNumber) + 1;
 		int[] additionResult = new int[maxLength];
-		
-		
+				
 		//Add characterwise
 		for ( int i = 0; i < maxLength; i++) {
 					
@@ -72,11 +79,10 @@ public class EndlessIntCalc {
 
 			additionResult[i] = (rest + number1 + number2) % 10;
 			rest = (rest + number1 + number2) / 10;
-			}
-
-		//create a second construct that takes an int array
-		EndlessIntCalc result = new EndlessIntCalc("0");
-		result.setsaveNumber(additionResult);		
+		}
+		
+		//Reread me :)
+		EndlessIntCalc result = new EndlessIntCalc(additionResult);			
 		return result;	
 	}
 			
