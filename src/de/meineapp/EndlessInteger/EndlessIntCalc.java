@@ -96,39 +96,33 @@ public class EndlessIntCalc {
 		int minLength = this.GetMinLengthOfTwoArrays(firstNumber, secondNumber);
 		int[][] row = new int[minLength][maxLength];
 		
-			for ( int j = 0; j < minLength; j++ ) {
-				number2 = this.getNumberFromIntArraySavely(secondNumber, j);
+			for ( int j = minLength-1; j >= 0 ; j-- ) {
+				number1 = this.getNumberFromIntArraySavely(firstNumber, j);
 		
-				for ( int i = maxLength-1; i >= 0; i--) {
+				for ( int i = 0; i < maxLength; i++) {
 		
-					 number1 = this.getNumberFromIntArraySavely(firstNumber, i);
-					 int counter = i + j;
+					 number2 = this.getNumberFromIntArraySavely(secondNumber, i);
+					 int counter = j + i;
 					 if (counter >= maxLength) {counter = 0;}
 					 
 					 row[j][counter] = (rest + number1 * number2) % 10;
-					 rest = (rest + number1 + number2) / 10;
+					 rest = (rest + number1 * number2) / 10;
+
 					 
 
 				}
 			}
-			EndlessIntCalc numberOne = new EndlessIntCalc("0");
-			EndlessIntCalc numberTwo = new EndlessIntCalc("0");
-			EndlessIntCalc actualResult;
-
-			//nur mehr alle reihen zusammen addieren und schon solllte die multiplikation fertig sein...
-					//nur wie???
 			
-			for ( int i = 0; i < minLength; i++) {
-				numberOne.setsaveNumber(row[i]);
-				//if ()
-				//numberTwo.setsaveNumber(row[j]);
-				actualResult = numberOne.AddInteger(numberTwo);
+			//ADDITION of array elements
+			EndlessIntCalc numberOne = new EndlessIntCalc(row[0]);
+			EndlessIntCalc numberTwo = new EndlessIntCalc("");
+						
+			for (int i = 1; i < minLength; i++) {
+				numberTwo = new EndlessIntCalc(row[i]);
+				numberOne = numberTwo.AddInteger(numberOne);
+				System.out.println(numberOne.toString());
 			}
-			
-		
-			EndlessIntCalc result = new EndlessIntCalc("0");
-			result.setsaveNumber(actualResult);		
-			return result;	
+			return numberOne;	
 	}
 			
 	
@@ -187,6 +181,27 @@ public class EndlessIntCalc {
 			saveNumber = 0;
 		}
 		return saveNumber;
+	}
+	
+	/**
+	 * Adds multiple array rows, used in MultiplyInteger
+	 * @param EndlessIntCalc row (array[rowcount][numberarray])
+	 * @param int minLength (minimal leng)
+	 * @return
+	 */
+	private EndlessIntCalc addMultipleArrayRows(String[] row, int minLength){
+		//ADDITION of array elements
+		EndlessIntCalc numberOne = new EndlessIntCalc(row[0]);
+		EndlessIntCalc numberTwo = new EndlessIntCalc("");
+					
+		for (int i = 1; i < minLength; i++) {
+			numberTwo = new EndlessIntCalc(row[i]);
+			numberOne = numberTwo.AddInteger(numberOne);
+			System.out.println(numberOne.toString());
+		}
+		
+		return numberOne;
+		
 	}
 
 	
