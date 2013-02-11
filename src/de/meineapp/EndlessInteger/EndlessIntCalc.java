@@ -85,6 +85,51 @@ public class EndlessIntCalc {
 		EndlessIntCalc result = new EndlessIntCalc(additionResult);			
 		return result;	
 	}
+	
+	public EndlessIntCalc MulitplyInteger ( EndlessIntCalc number) {
+		int number1, number2, rest = 0;
+		int[] firstNumber = this.saveNumber;
+		int[] secondNumber = number.getsaveNumber();
+		
+		
+		int maxLength = firstNumber.length + secondNumber.length;
+		int minLength = this.GetMinLengthOfTwoArrays(firstNumber, secondNumber);
+		int[][] row = new int[minLength][maxLength];
+		
+			for ( int j = 0; j < minLength; j++ ) {
+				number2 = this.getNumberFromIntArraySavely(secondNumber, j);
+		
+				for ( int i = maxLength-1; i >= 0; i--) {
+		
+					 number1 = this.getNumberFromIntArraySavely(firstNumber, i);
+					 int counter = i + j;
+					 if (counter >= maxLength) {counter = 0;}
+					 
+					 row[j][counter] = (rest + number1 * number2) % 10;
+					 rest = (rest + number1 + number2) / 10;
+					 
+
+				}
+			}
+			EndlessIntCalc numberOne = new EndlessIntCalc("0");
+			EndlessIntCalc numberTwo = new EndlessIntCalc("0");
+			EndlessIntCalc actualResult;
+
+			//nur mehr alle reihen zusammen addieren und schon solllte die multiplikation fertig sein...
+					//nur wie???
+			
+			for ( int i = 0; i < minLength; i++) {
+				numberOne.setsaveNumber(row[i]);
+				//if ()
+				//numberTwo.setsaveNumber(row[j]);
+				actualResult = numberOne.AddInteger(numberTwo);
+			}
+			
+		
+			EndlessIntCalc result = new EndlessIntCalc("0");
+			result.setsaveNumber(actualResult);		
+			return result;	
+	}
 			
 	
 	/**
@@ -100,6 +145,15 @@ public class EndlessIntCalc {
 			maxArrayLength = save2Number.length;
 		}
 		return maxArrayLength;
+	}
+	
+	private int GetMinLengthOfTwoArrays (int[] saveNumber, int[] save2Number) {
+		
+		int minArrayLength = saveNumber.length;
+		if ( save2Number.length < saveNumber.length ) {
+			minArrayLength = save2Number.length;
+		}
+		return minArrayLength;
 	}
 	
 	
@@ -135,4 +189,7 @@ public class EndlessIntCalc {
 		return saveNumber;
 	}
 
+	
+
 }
+

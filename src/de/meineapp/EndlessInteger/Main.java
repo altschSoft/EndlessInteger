@@ -17,13 +17,13 @@ public class Main {
 		System.out.println("Die Summe der beiden Zahlen ist: " + result);
 		*/
 		
-		EndlessIntCalc test = new EndlessIntCalc("66");//put it up afterwards!!
+		EndlessIntCalc test = new EndlessIntCalc("111");//put it up afterwards!!
 		System.out.println(test.toString());
 		
-		EndlessIntCalc test2 = new EndlessIntCalc("666");
+		EndlessIntCalc test2 = new EndlessIntCalc("222");
 		System.out.println(test2.toString());
 		
-		EndlessIntCalc actualResult = test.AddInteger(test2);
+		EndlessIntCalc actualResult = test.MulitplyInteger(test2);
 		System.out.println(actualResult);
 		
 		
